@@ -16,5 +16,5 @@
 
 - Реализован CRUD для модели Lesson через Generic-классы
 
-- Реализован CRUD для модели Users через ViewSet 
+- Реализован CRUD для модели User через ViewSet 
 
