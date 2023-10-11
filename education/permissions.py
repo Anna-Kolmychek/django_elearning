@@ -3,7 +3,6 @@ from rest_framework.permissions import BasePermission
 
 class EducationItemAccess(BasePermission):
     def has_permission(self, request, view):
-        print(request.method)
         if request.method == 'GET':
             return request.user.is_authenticated
         elif request.method == 'POST':
@@ -14,7 +13,6 @@ class EducationItemAccess(BasePermission):
             return False
 
     def has_object_permission(self, request, view, obj):
-        print(request.method)
         if not request.user.is_authenticated:
             return False
 
