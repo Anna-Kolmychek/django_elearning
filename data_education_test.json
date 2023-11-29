@@ -6,7 +6,8 @@
       "title": "course1",
       "description": null,
       "preview": "",
-      "owner": 3
+      "owner": 3,
+      "price": 10
     }
   },
   {
@@ -16,7 +17,8 @@
       "title": "course2",
       "description": null,
       "preview": "",
-      "owner": 4
+      "owner": 4,
+      "price": 20
     }
   },
   {

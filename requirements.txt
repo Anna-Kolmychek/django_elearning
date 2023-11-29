@@ -5,3 +5,6 @@ psycopg2-binary==2.9.8
 django-filter
 djangorestframework-simplejwt
 coverage
+stripe
+python-dotenv
+drf-yasg
