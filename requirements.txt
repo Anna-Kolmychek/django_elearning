@@ -8,3 +8,6 @@ coverage
 stripe
 python-dotenv
 drf-yasg
+celery
+redis
+django-celery-beat

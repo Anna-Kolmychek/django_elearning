@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework_simplejwt',
     'drf_yasg',
+    'django_celery_beat',
 
     'users',
     'education',
@@ -157,5 +158,13 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=360),
 }
 
-
 STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
+
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
