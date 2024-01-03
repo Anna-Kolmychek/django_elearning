@@ -1,6 +1,49 @@
 # Проект "Платформа онлайн-обучения"
 
-## Запуск проекта
+## Запуск проекта через docker-compose
+
+1. Скопируйте проект
+
+
+2. Создайте файл `.env` и запишите в него (пример структуры файла в `.env_sample`)
+- STRIPE_API_KEY (для оплаты в ДЗ 26.1)
+- EMAIL_HOST_USER (для отправки писем в ДЗ 26.2)
+- EMAIL_HOST_PASSWORD (для отправки писем в ДЗ 26.2)
+
+3. В `settings.py` измените настройки почты при необходимости (хост и пароль заданы в `.env` (см. п.5),
+остальные настройки приведены для яндекса.
+```
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+```
+ 
+4. Запустите сборку
+```
+docker-compose build
+```
+5. Запустите приложение
+```
+docker-compose up
+```
+
+6. При желании создайте суперпользователя (admin@email.com, 12345),
+группу модераторов, пользователя модератор (moderator@email.com, 12345) и тестовые данные:
+двух тестовых пользователей (user1@email.com/user2@email.com, 12345), курсы, уроки, платежи.
+Последовательность и наличие всех команд принципиально.
+```
+docker-compose exec app python3 manage.py create_su
+docker-compose exec app python3 manage.py create_moderator_group
+docker-compose exec app python3 manage.py create_moderator
+docker-compose exec app python3 manage.py create_test_users
+docker-compose exec app python3 manage.py loaddata data_education_test.json
+docker-compose exec app python3 manage.py create_test_payments
+```
+
+
+## Запуск проекта локально (без docker)
 
 1. Скопируйте проект, установите виртуальное окружение и зависимости из `requirements.txt`.
 
@@ -68,6 +111,17 @@ celery -A config beat -l INFO -S django
 ```
 
 
+## ДЗ 27.2 Docker Compose
+
+- Подготовлен Dockerfile для запуска контейнера с проектом.
+- Подготовлен docker-compose.yaml для запуска проекта с учетом
+  - postgres
+  - redis
+  - celery, celery-beat
+
+
+## Сделано ранее
+
 ## ДЗ 26.2 Celery
 
 - Выполнена настройка проекта для работы с celery (в качестве брокера используется redis) и celery-beat
@@ -76,8 +130,6 @@ celery -A config beat -l INFO -S django
 - Реализована проверка "неактивных" пользователей: если пользователь не логинился больше 30 дней,
 он блокируется через флаг is_active. Проверка реализована периодической задачей.
 
-
-## Сделано ранее
 
 ### ДЗ 26.1 Документирование и безопасность
 
